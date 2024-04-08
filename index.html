@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Google Cloud Function</title>
+</head>
+<body>
+  <h1>Web App B</h1>
+  <div id="dataDisplay"></div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Set up a handler for the incoming POST request
+      google.script.run.withSuccessHandler(displayData).doPost();
+
+      function displayData(data) {
+        var dataDisplay = $('#dataDisplay');
+        dataDisplay.append('<p>' + JSON.stringify(data) + '</p>');
+      }
+    });
+  </script>
+
+</body>
+</html>
