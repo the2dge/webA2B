@@ -8,11 +8,18 @@
 <body>
   <h1>Web App B</h1>
   <div id="dataDisplay"></div>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       // Set up a handler for the incoming POST request
-      google.script.run.withSuccessHandler(displayData).doPost();
+      window.addEventListener('message', function(event) {
+        if (event.origin === 'https://script.google.com') {
+          // Verify the origin to prevent cross-site scripting attacks
+          var data = event.data;
+          displayData(data);
+        }
+      });
 
       function displayData(data) {
         var dataDisplay = $('#dataDisplay');
@@ -20,6 +27,5 @@
       }
     });
   </script>
-
 </body>
 </html>
